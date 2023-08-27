@@ -3,12 +3,11 @@
 # calculate some topographic and geologic attributes
 
 ### INFO
-# TODO: the geological glim classes _______ are not present in the area of interest, and therefore aren´t reflected in the script
 # calculation may takes a while, depending on the number of basins
 # the code presuppose that all imported shapefiles are already in the same coordinate system
 
 ### AUTHOR
-# This code accompanies the paper "LamaH-Ice | Large-Sample Data for Hydrology and Environmental Sciences for Iceland" submitted to the journal Earth Syst. Sci. Data (ESSD), 2022
+# This code accompanies the paper "LamaH-Ice | Large-Sample Data for Hydrology and Environmental Sciences for Iceland" submitted to the journal Earth Syst. Sci. Data (ESSD), 2023
 # The code was originally written by Christoph Klingler, Institute for Hydrology and Water Management, University of Natural Resources and Life Sciences, Vienna, 11 June 2021, v1.0
 # Originally written by Christoph Klingler, Institute for Hydrology and Water Management, University of Natural Resources and Life Sciences, Vienna, 11 June 2021, v1.0, accompanying the paper "LamaH-CE | Large-Sample Data for Hydrology and Environmental Sciences for Central Europe" published in the journal Earth Syst. Sci. Data (ESSD), 2021
 # The original code has been was adapted to QGIS v. 3.14 and updated to create the LamaH-Ice dataset, by Hordur Helgason, University of Washington, Seattle, June 30th 2022
