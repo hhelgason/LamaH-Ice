@@ -24,7 +24,7 @@
 ### AUTHOR
 # by Christoph Klingler, Institute for Hydrology and Water Management, University of Natural Resources and Life Sciences, Vienna, 11 June 2021, v1.0
 # code accompanying the paper "LamaH-CE | Large-Sample Data for Hydrology and Environmental Sciences for Central Europe" published in the journal Earth Syst. Sci. Data (ESSD), 2021
-
+# Edited in 2023/2024 by Hordur Helgason, helgason@uw.edu
 
 #############
 ### LIBRARIES 
@@ -38,7 +38,10 @@ library(zoo)
 ### LOOP
 
 # choose variables
-metvars <- c( "10m_u_component_of_wind", "10m_v_component_of_wind","volumetric_soil_water_layer_123")
+metvars <- c(  "2m_temperature", "10m_u_component_of_wind", "10m_v_component_of_wind", "potential_evaporation", "snow_depth_water_equivalent",
+               "surface_net_solar_radiation", "surface_net_thermal_radiation", "surface_pressure", "total_evaporation", "total_precipitation",
+               "volumetric_soil_water_layer_123", "volumetric_soil_water_layer_4", "skin_temperature", "leaf_area_index_high_vegetation", "leaf_area_index_low_vegetation",
+               "2m_dewpoint_temperature", "forecast_albedo", "snow_albedo", "snow_cover", "snow_density", "snowmelt") 
 
 ## Start variable loop
 for (metvar in metvars){
@@ -53,15 +56,15 @@ print(metvar)
 # time window, code has to be adapted if dates are changed
 dt_start <- "1950 01 01 01 00"                                                                 # start date of time series, format: YYYY MM DD hh mm
 dt_end <- "2021 12 31 23 00"                                                                   # end date of time series, format: YYYY MM DD hh mm
+#dt_end <- "1955 12 31 23 00"
 
 # input path and file name
 Input_TS <- "C:/Users/hordurbhe/Documents/Vinna/lamah/lamah_ice/era5_land/data"                                                                # path to ERA5-Land netcdf files (output folder of API_download_ERA5L.R)
 Input_grid_ERA5L <- "C:/Users/hordurbhe/Dropbox/UW/lamah_ice/GIS/ERA5L/ERA5L_grid_isn93.shp"   # path to grid of ERA5-Land
-#Input_shape_poly <- "C:/Users/hordurbhe/Dropbox/UW/lamah_ice/GIS/test_gauges_and_basins_for_attrs_calc/basins.shp"                              # path to polygons, on which the meteorol. time series should be aggregated; choose between basin delineation A, B or C
+# path to polygons, on which the meteorol. time series should be aggregated; choose between basin delineation A, B or C
 Input_shape_poly <- "C:/Users/hordurbhe/Dropbox/UW/lamah_ice/GIS/watersheds/final_watersheds/final_watersheds/Basins_A.shp" 
 # output path
 Output <- "C:/Users/hordurbhe/Documents/Vinna/lamah/lamah_ice/era5_land/1950-2021"           				   								           # path to output folder; choose between basin delineation A, B or C
-
 
 ################
 ### IMPORT FILES
@@ -298,7 +301,7 @@ for (i in 1:length(filenames)){
   
   #print('start middle loop')
   ## Define middle loop through hourly timesteps in a file
-  for (j in 1:nts){ #!!!! changed by HHH
+  for (j in 1:nts){ 
     
     # print actual timestep to console
     #print(paste(substr(file, 20, nchar(file)), ", timestep: ", j))
@@ -329,10 +332,7 @@ for (i in 1:length(filenames)){
     # if metvar = "potential_evaporation", "total_evaporation", "total_precipitation" or
     # if metvar = "surface_net_solar_radiation", "surface_net_thermal_radiation"
     # subtract value of previous timestep from that of actual timestep, except at timestep 01:00 of a day (this timestep is not accumulated with previous timestep within ERA5L)
-    #print('processing1')
-    #print(gamli)
-    if (j!= 1){ # all timesteps, except the first one
-      if ((vgrp == 2) | (vgrp == 3)){
+    if ((vgrp == 2) | (vgrp == 3)){
       
         # calculate difference to previous timestep
         if (substr(as.character(otim + tim[j]*3600), 12, 13) != "01"){
@@ -374,11 +374,7 @@ for (i in 1:length(filenames)){
           bin_sel <- bin_sel/3600
         }
       }
-    }
-    #print(hi)
-    #print('processing2 ERROR!!!!!!')# (for potential evaporation)', surface_net_solar_radiation", "surface_net_thermal_radiation ..)
-    
-    # HBH edits: Here I need to get rid of nans in bin_sel
+    #}
     # check for number of NA?s 
     naouty <- sum(is.na(bin_sel))
     
