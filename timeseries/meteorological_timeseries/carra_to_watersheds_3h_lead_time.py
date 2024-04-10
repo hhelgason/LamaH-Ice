@@ -69,8 +69,8 @@ savg = xe.SpatialAverager(ds.sel(time=ds.time[0]), gdf.geometry, geom_dim_name="
 # We calculate the averages of the weather parameters on the watersheds
 
 ds_dict = dict()
-listi = []
 for year in np.arange(1991,2010):
+    listi = []
     filenames=glob.glob('/data/carra/carra_island_3h_lead/CARRA_WestDomain_daily_Iceland_'+str(year)+'*')
     for filename in filenames:
         ds_c = xr.open_dataset(filename)
