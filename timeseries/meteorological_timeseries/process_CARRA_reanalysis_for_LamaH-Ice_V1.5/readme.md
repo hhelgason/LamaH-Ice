@@ -13,5 +13,6 @@ To process the CARRA data (available at http://ftp.betravedur.is/LV/icebox/carra
 process_carra_parallel.py – regrids and processes raw CARRA files in parallel
 combined_watershed_series.py – combines sub-watershed time series into catchment-level series
 create_daily_series.py – converts sub-daily data to daily resolution
+merge_carra_to_lamah.py - inserts the CARRA timeseries into the lamah-ice files
 
 Code to perform sanity check on the timeseries for all variables: compare_full_period_all_vars.py
